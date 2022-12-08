@@ -486,25 +486,24 @@ core_bridge_cmd icb (
 
 
 
-// video generation
-// ~12,288,000 hz pixel clock
-//
-// we want our video mode of 320x240 @ 60hz, this results in 204800 clocks per frame
-// we need to add hblank and vblank times to this, so there will be a nondisplay area. 
-// it can be thought of as a border around the visible area.
-// to make numbers simple, we can have 400 total clocks per line, and 320 visible.
-// dividing 204800 by 400 results in 512 total lines per frame, and 240 visible.
-// this pixel clock is fairly high for the relatively low resolution, but that's fine.
-// PLL output has a minimum output frequency anyway.
+    // video generation
+    // ~12,288,000 hz pixel clock
+    //
+    // we want our video mode of 320x240 @ 60hz, this results in 204800 clocks per frame
+    // we need to add hblank and vblank times to this, so there will be a nondisplay area. 
+    // it can be thought of as a border around the visible area.
+    // to make numbers simple, we can have 400 total clocks per line, and 320 visible.
+    // dividing 204800 by 400 results in 512 total lines per frame, and 240 visible.
+    // this pixel clock is fairly high for the relatively low resolution, but that's fine.
+    // PLL output has a minimum output frequency anyway.
 
-
-assign video_rgb_clock = clk_core_12288;
-assign video_rgb_clock_90 = clk_core_12288_90deg;
-assign video_rgb = vidout_rgb;
-assign video_de = vidout_de;
-assign video_skip = vidout_skip;
-assign video_vs = vidout_vs;
-assign video_hs = vidout_hs;
+    assign video_rgb_clock = clk_core_12288;
+    assign video_rgb_clock_90 = clk_core_12288_90deg;
+    assign video_rgb = vidout_rgb;
+    assign video_de = vidout_de;
+    assign video_skip = vidout_skip;
+    assign video_vs = vidout_vs;
+    assign video_hs = vidout_hs;
 
     localparam  VID_V_BPORCH = 'd10;
     localparam  VID_V_ACTIVE = 'd240;
@@ -581,9 +580,9 @@ always @(posedge clk_core_12288 or negedge reset_n) begin
                 // data enable. this is the active region of the line
                 vidout_de <= 1;
                 
-                vidout_rgb[23:16] <= 8'd60;
-                vidout_rgb[15:8]  <= 8'd60;
-                vidout_rgb[7:0]   <= 8'd60;
+                vidout_rgb[23:16] <= x_count[7:0] ^ 8'd8;
+                vidout_rgb[15:8]  <= x_count[8:1] ^ 8'd16;
+                vidout_rgb[7:0]   <= y_count[7:0] ^ 8'd4;
                 
             end 
         end
