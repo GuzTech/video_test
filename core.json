@@ -2,13 +2,13 @@
     "core": {
         "magic": "APF_VER_1",
         "metadata": {
-            "platform_ids": ["ex_platform"],
-            "shortname": "Core Template",
+            "platform_ids": ["oguz_platform"],
+            "shortname": "Video Test Core",
             "description": "APF core template. Displays gray test screen.",
-            "author": "Developer",
-            "url": "https://github.com/open-fpga/core-template",
+            "author": "GuzTech",
+            "url": "https://github.com/GuzTech/video_test",
             "version": "1.2.0",
-            "date_release": "2022-11-05"
+            "date_release": "2022-12-08"
         },
         "framework": {
             "target_product": "Analogue Pocket",
